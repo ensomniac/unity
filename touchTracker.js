@@ -8,9 +8,9 @@
 //
 // Author:  Ryan Martin ryan@ensomniac.com
 //
-// Description: Attach this script to any prefab in the scene. It can be queried 
+// Description: Attach this script to any GameObject in the scene. It can be queried 
 // for its static parameters to see if there is an active touch. 
-// Works on desktop and mobile
+// Works on desktop and mobile. Note: Must be added to a GameObject
 // **************************************************************************
 
 // 0 for no touch, 1 for down, 2 for movement, 3 for up. 
