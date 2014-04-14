@@ -1,5 +1,18 @@
 #pragma strict
 
+// **************************************************************************
+// Copyright © Ensomniac Studios. All rights reserved. This material
+// contains the confidential and proprietary information of Ensomniac Studios
+// and may not be copied in whole or in part without the express written permission
+// of Ensomniac Studios. This copyright notice does not imply publication.
+//
+// Author:  Ryan Martin ryan@ensomniac.com
+//
+// Description: Attach this script to any prefab in the scene. It can be queried 
+// for its static parameters to see if there is an active touch. 
+// Works on desktop and mobile
+// **************************************************************************
+
 // 0 for no touch, 1 for down, 2 for movement, 3 for up. 
 static var touch_active : int;
 
@@ -49,7 +62,6 @@ static var lastX : float;
 static var lastY : float;
 static var velocity : float;
 
-
 function Awake () {
 	reset_touches();
     emission_tap_active = false;
@@ -95,8 +107,6 @@ static function onTouchStart(object:GameObject, f:Function) {
     
 }
 
-
-
 static function onTouchEnd(object:GameObject, f:Function) {
     // Use this function to hook up touch events to gameObjects. GameObjects
     // must have a collider attached.
@@ -120,7 +130,6 @@ static function onTouchEnd(object:GameObject, f:Function) {
     farray[y] = f;
     event_functions_end = farray;
 }
-
 
 static function touch_started() {
     // A touch has started
@@ -163,8 +172,6 @@ static function tap_ended(){
 	}
 }
 
-
-
 function Update () {
     if (emission_tap_start_cords.x != -1) {
         emission_tap_start_cords = Vector2(-1, -1);
@@ -188,8 +195,6 @@ function Update () {
         touch_started();
     } 
 }
-
-
 
 static function check_for_tap() {
 	var start_x : float = input_coords_start[0];
@@ -287,7 +292,6 @@ static function input_active(x:float, y:float) {
     
     lastX = x;
     lastY = y;
-    
 }
 
 static function track_gesture(x:float, y:float) {
@@ -378,10 +382,6 @@ static function emit_tap_start_event(x:float, y:float) {
 	emission_tap_start_cords = Vector2(x, y);
 }
 
-
-
-
-
 static function get_input_difference_at_depth(depth:float) {
     // This is a helper function to calculate the amount of movement at a certain
     // depth from the camera. 
@@ -400,7 +400,3 @@ static function get_input_difference_at_depth(depth:float) {
     return Vector2(movement_different_x, movement_different_y);
     
 }
-
-
-
-
