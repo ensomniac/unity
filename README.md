@@ -5,10 +5,5 @@ Tools to make developing for Unity easier.
 
 Setup
 =====
-Inside of a Unity project, ensure that this structure exists:
-Assets/scripts/
-
-cd into Assets/scripts
-
-Run >> git clone git@github.com:ensomniac/unity.git ensomniac
-
+Inside of a Unity project, cd into your Assets/ folder and run:
+>> git clone git@github.com:ensomniac/unity.git ensomniac
