@@ -55,6 +55,11 @@ static var event_functions_start : Function[] = [];
 static var event_names_end : String[] = [];
 static var event_functions_end : Function[] = [];
 
+//static var event_names_move : String[] = [];
+//static var event_functions_move : Function[] = [];
+//static var event_names_move_triggered : Array = [];
+
+
 // Fake velocity
 static var distanceLastSwipe : float;
 static var durationLastSwipe : float;
@@ -82,10 +87,35 @@ function Awake () {
 	}
 }
 
+//static function onTouchMove(object:GameObject, f:Function) {
+//    // Use this function to hook up touch events to gameObjects. GameObjects
+//    // must have a collider attached.
+//           
+//    var narray = new String[event_names_move.Length+1];
+//    var x : int = 0;
+//    for (var name : String in event_names_move) {
+//        narray[x] = name;
+//        x += 1;
+//    }
+//    narray[x] = object.name;
+//    event_names_move = narray;
+//    
+//    // Store the new function
+//    var farray = new Function[event_functions_move.Length+1]; 
+//    var y : int = 0;
+//    for (var func : Function in event_functions_move) {
+//        farray[y] = func;
+//        y += 1;
+//    }
+//    farray[y] = f;
+//    event_functions_move = farray;
+//    
+//}
+
 static function onTouchStart(object:GameObject, f:Function) {
     // Use this function to hook up touch events to gameObjects. GameObjects
     // must have a collider attached.
-       
+           
     var narray = new String[event_names_start.Length+1];
     var x : int = 0;
     for (var name : String in event_names_start) {
@@ -151,13 +181,12 @@ static function touch_started() {
     lastY = emission_tap_start_cords[1];
 }
 
-static function tap_ended(){
-    // A touch has started
-    
+static function tap_ended(){    
     var endPoints : Vector3 = Vector3(input_coords_end[0], input_coords_end[1], 0);
     
 	var ray = Camera.main.ScreenPointToRay(endPoints);
 	var hit : RaycastHit;
+	
 	if (Physics.Raycast (ray, hit, 10000)) {
 	    var iter : int = 0;
 	    //print(hit.collider.gameObject.name);
@@ -171,6 +200,38 @@ static function tap_ended(){
 	    }
 	}
 }
+
+
+//static function checkForMoveHit(){
+//    if (event_names_move.Length == 0) {return;} // Fast out for apps not requiring constant ray casting
+//    
+//    print("Checking for move hit");
+//    print(event_names_move_triggered);
+//    
+//    var endPoints : Vector3 = Vector3(lastX, lastY, 0);
+//    
+//	var ray = Camera.main.ScreenPointToRay(endPoints);
+//	var hit : RaycastHit;
+//	
+//	if (Physics.Raycast (ray, hit, 10000)) {
+//	    var iter : int = 0;
+//	    //print(hit.collider.gameObject.name);
+//	    for (var name in event_names_move) {
+//	        if (name == hit.collider.gameObject.name) {
+//	            
+//	            if (!alreadyTriggered) {
+//		            var f : Function = event_functions_move[iter];
+//		            f(hit.collider.gameObject);
+//		            event_names_move_triggered.push(name);
+//	            }
+//	            
+//	        }
+//	        iter += 1;
+//	    }
+//	}
+//}
+
+
 
 function Update () {
     if (emission_tap_start_cords.x != -1) {
@@ -249,6 +310,8 @@ static function input_active(x:float, y:float) {
 	    
     if (gesture_direction == 0) {
         // The direction hasn't been set yet! Set it now. 
+        //event_names_move_triggered = [];
+        
 		if (diff_x < 0) {diff_x = -diff_x;}
 		if (diff_y < 0) {diff_y = -diff_y;}
 		if (diff_x > tap_threshold || diff_y > tap_threshold) {
@@ -292,6 +355,8 @@ static function input_active(x:float, y:float) {
     
     lastX = x;
     lastY = y;
+    
+    //checkForMoveHit();
 }
 
 static function track_gesture(x:float, y:float) {

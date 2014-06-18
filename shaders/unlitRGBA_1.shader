@@ -1,4 +1,4 @@
-Shader "Mobile/[Ensomniac] UnlitRGBA"
+Shader "Mobile/[Ensomniac] UnlitRGBA - [D1]"
 {
     Properties
     {
@@ -9,15 +9,16 @@ Shader "Mobile/[Ensomniac] UnlitRGBA"
     Category
     {
         Lighting Off
-        ZWrite Off
+        ZWrite On
                 //ZWrite On  // uncomment if you have problems like the sprite disappear in some rotations.
         Cull back
         Blend SrcAlpha OneMinusSrcAlpha
                 //AlphaTest Greater 0.001  // uncomment if you have problems like the sprites or 3d text have white quads instead of alpha pixels.
-        Tags {Queue=Transparent}
+        Tags {"Queue"="Overlay+1" "RenderType"="Overlay"}
  
         SubShader
         {
+ 
              Pass
              {
                         SetTexture [_MainTex]
